@@ -54,17 +54,11 @@ func loginData(c *fiber.Ctx) error {
 	claims["username"] = user.Username
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 	t, err := token.SignedString([]byte(jwtSecretKey))
-	c.Cookie(&fiber.Cookie{
-		Name:     "jwt",
-		Value:    t,
-		Expires:  time.Now().Add(time.Hour * 72),
-		HTTPOnly: true,
-	})
 	if err != nil {
 		fmt.Println(err)
 		return c.SendStatus(fiber.StatusInternalServerError)
 	}
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "Success",
+		"token": t,
 	})
 }

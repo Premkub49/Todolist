@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register Page</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src = "layout/head.js"></script>
+    </head>
+    <body class="bg-zinc-100 login-grid">
+        <p class="title" style="grid-area:1/2/2/3;">Register</p>
+        <form id="register" class="center" style="grid-area:2/2/3/3; display:grid; grid-template-columns: 50% 50%; grid-template-rows: 25% 25% 25% 20% 5%;">
+            <div class="input-box col-start-1 col-end-3 row-start-1 row-end-2">
+                <p class="font-bold text-xl text-left ">Username</p>
+                <input type="text" name="username" id = "username" required pattern=".*\S.*" title="Cannot be empty or only spaces" class="w-full rounded-md bg-neutral-100 h-7" style="border:black solid 2px">
+            </div>
+            <div class="input-box col-span-2 row-start-2 row-end-3">
+                <p class="font-bold text-xl text-left ">Email</p>
+                <input type="email" name="email" id="email" required class = "w-full rounded-md bg-neutral-100 h-7" pattern=".*\S.*" title="Cannot be empty or only spaces" style="border:black solid 2px">
+                </div>
+            <div class="input-box col-span-2 row-start-3 row-end-4">
+            <p class="font-bold text-xl text-left ">Password</p>
+            <input type="password" name="password" id = "password" pattern=".*\S.*" title="Cannot be empty or only spaces" required class = "w-full rounded-md bg-neutral-100 h-7" style="border:black solid 2px">
+            </div>
+            <button class = "col-start-1 col-end-3 row-start-4 row-end-5 btn btn-primary w-1/4 h-1/2 m-auto text-lg font-bold m-atuo">Register</button>
+            <label class="col-start-1 col-end-3 row-start-5 row-end-6 flex justify-end">Already have an account?<a href="login.html" class = "text-blue-600 font-semibold">Log in</a></label>
+        </form>
+    </body>
+    <script src = "register.js"></script>
+</html>

@@ -1,0 +1,9 @@
+$(document).ready(function(){
+    $.get("layout/head.html",
+        function(data,status){
+            if(status=="success"){
+                $("head").append(data);
+            }
+        }
+    );
+})

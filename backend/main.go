@@ -49,7 +49,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	path := os.Getenv("PATH")
+	path := os.Getenv("PATH_TO_FRONT")
+	path = "http://" + path
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: path,
@@ -59,5 +60,6 @@ func main() {
 	api := app.Group("/api")
 	api.Post("/register", registerData)
 	api.Post("/login", loginData)
+	api.Post("/cookie", checkCookie)
 	app.Listen(":8080")
 }

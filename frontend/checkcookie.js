@@ -11,3 +11,17 @@ let token = getCookie("token");
 if(token===null){
     window.location.href = "login.html";
 }
+fetch("http://localhost:8080/api/cookie",{
+    method:"POST",
+    headers:{
+        "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+        "token":token
+    })
+}).then((r)=>{
+    if(!r.ok){
+        window.location.href = "login.html";
+    }
+}
+);

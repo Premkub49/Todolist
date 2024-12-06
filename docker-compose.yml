@@ -25,8 +25,6 @@ services:
     container_name: frontend
     build:
       context: ./frontend
-    environment:
-      PATH: ${PATH_TO_BACK}
     ports:
       - "3000:80"
     volumes:
@@ -41,7 +39,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
-      PATH: ${PATH_TO_FRONT}
+      PATH_TO_FRONT: ${PATH_TO_FRONT}
     ports:
       - "8080:8080"
     depends_on:

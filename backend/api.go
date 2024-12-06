@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -61,4 +62,24 @@ func loginData(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"token": t,
 	})
+}
+
+func checkCookie(c *fiber.Ctx) error {
+	type Body struct {
+		Token string `json:"token"`
+	}
+	body := new(Body)
+	if err := c.BodyParser(body); err != nil {
+		log.Println("Error cookie Send ", err)
+		log.Println(body.Token)
+		return c.SendStatus(fiber.StatusBadRequest)
+	}
+	_, err := jwt.ParseWithClaims(body.Token, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(jwtSecretKey), nil
+	})
+	if err != nil {
+		log.Println("key error ", err)
+		return c.SendStatus(fiber.StatusUnauthorized)
+	}
+	return c.SendStatus(fiber.StatusOK)
 }

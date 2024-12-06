@@ -2,8 +2,7 @@ document.getElementById("login").addEventListener("submit",async function(){
     event.preventDefault();
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value; 
-    var path = process.env.PATH
-    var data = await fetch(`http://${path}/api/login`,{
+    var data = await fetch(`http://localhost:8080/api/login`,{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({

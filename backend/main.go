@@ -17,6 +17,14 @@ type User struct {
 	Password string `json:"password"`
 }
 
+type Task struct {
+	ID       int    `json:"id"`
+	Listname string `json:"listname"`
+	Deadline string `json:"deadline"`
+	Detail   string `json:"detail"`
+	Username string `json:"username"`
+}
+
 var (
 	host         = "postgres"
 	port         = 5432
@@ -44,14 +52,20 @@ func main() {
 	}
 	fmt.Println("Connection Success")
 	_, err = db.Exec(
-		"CREATE TABLE IF NOT EXISTS userdata(username text PRIMARY KEY NOT NULL,email text NOT NULL,password text NOT NULL)",
+		"CREATE TABLE IF NOT EXISTS userdata(username text PRIMARY KEY NOT NULL,email text NOT NULL,password text NOT NULL);",
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	_, err = db.Exec(
+		"CREATE TABLE IF NOT EXISTS userlist(id SERIAL PRIMARY KEY NOT NULL,listname text NOT NULL,deadline timestamp with time zone NOT NULL,detail text ,username text NOT NULL, FOREIGN KEY (username) REFERENCES userdata(username) ON DELETE CASCADE);",
 	)
 	if err != nil {
 		log.Fatal(err)
 	}
 	path := os.Getenv("PATH_TO_FRONT")
-	path = "http://" + path
 	app := fiber.New()
+	log.Println(path)
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: path,
 		AllowMethods: "GET,POST,PUT,DELETE",
@@ -61,5 +75,8 @@ func main() {
 	api.Post("/register", registerData)
 	api.Post("/login", loginData)
 	api.Post("/cookie", checkCookie)
+	api.Post("/createtask", createTaskAPI)
+	api.Post("/getUserTask", getUserTaskAPI)
+	api.Delete("/deleteTask", deleteTaskAPI)
 	app.Listen(":8080")
 }

@@ -2,7 +2,7 @@ document.getElementById("login").addEventListener("submit",async function(){
     event.preventDefault();
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value; 
-    var data = await fetch(`http://localhost:8080/api/login`,{
+    var data = await fetch(`${window.backend}/api/login`,{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
@@ -30,7 +30,7 @@ document.getElementById("login").addEventListener("submit",async function(){
                 icon: "success",
                 confirmButtonText: 'OK',
               });
-            window.location.href="index.html";
+            window.location.href="task.html";
         }
     });
 });

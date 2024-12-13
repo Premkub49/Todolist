@@ -5,10 +5,49 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src = "layout/head.js"></script>
+        <title>Landing Page</title>
+        <style>
+           body{
+                background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNbfoXeajWpoWII8CS0bA5Qwbs5SVI_UL1vg&s");
+                background-position: center;
+                background-repeat:no-repeat;
+                background-size: cover;
+                backdrop-filter: blur(1.5rem);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin:0;
+                height: 100vh;
+            }
+            .landing{
+                background-color: #EDC1C1;
+                border:black 1px solid;
+                width: 35%;
+                height: 55%;
+                text-align: center;
+                display:grid;
+                grid-template-rows: repeat(6,1fr);
+                border-radius: 1rem;
+                min-width: 350px;
+            }
+            p {
+                font-size:large;
+                font-weight: bold;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
     </head>
     <body>
-        <h1 class = "title">My Todo List</h1>
-        <input name = "task" type="text" placeholder="เพิ่มงานของคุณ">
+        <script src = "js/checkcookie.js"></script>
+        <div class="landing">
+        <p>This is Todolist Website</p>
+        <p>Develop by Keerati Setthasuk</p>
+        <p>Front-end:HTML CSS JavaScript</p>
+        <p>Back-end:Golang</p>
+        <p><a href="https://github.com/Premkub49/Todolist" target="_blank" style="color:blue;">Source Code</a></p>
+        <p><a href="login.html" class="btn btn-success">Login</a></p>
+        </div>
     </body>
-    <script src="checkcookie.js"></script>
 </html>

@@ -20,3 +20,42 @@ func getUser(user *User) (User, error) {
 	}
 	return selectUser, nil
 }
+
+func createTask(task *Task) error {
+	_, err := db.Exec(
+		"INSERT INTO userlist (listname,deadline,detail,username) VALUES ($1,$2,$3,$4)", task.Listname, task.Deadline, task.Detail, task.Username,
+	)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func getUserTask(username string) ([]Task, error) {
+	rows, err := db.Query(
+		"SELECT * FROM userlist WHERE username = $1", username,
+	)
+	if err != nil {
+		return nil, err
+	}
+	var Tasks []Task
+	defer rows.Close()
+	for rows.Next() {
+		var task Task
+		if err = rows.Scan(&task.ID, &task.Listname, &task.Deadline, &task.Detail, &task.Username); err != nil {
+			return nil, err
+		}
+		Tasks = append(Tasks, task)
+	}
+	return Tasks, nil
+}
+
+func deleteTask(id int) error {
+	_, err = db.Exec(
+		"DELETE FROM userlist WHERE id = $1", id,
+	)
+	if err != nil {
+		return err
+	}
+	return nil
+}

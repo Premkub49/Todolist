@@ -74,12 +74,68 @@ func checkCookie(c *fiber.Ctx) error {
 		log.Println(body.Token)
 		return c.SendStatus(fiber.StatusBadRequest)
 	}
-	_, err := jwt.ParseWithClaims(body.Token, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(body.Token, jwt.MapClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(jwtSecretKey), nil
 	})
-	if err != nil {
+	if err != nil || !token.Valid {
 		log.Println("key error ", err)
 		return c.SendStatus(fiber.StatusUnauthorized)
+	}
+	claim := token.Claims.(jwt.MapClaims)
+	fmt.Println("User Login ", claim["username"])
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{"username": claim["username"]})
+}
+
+func createTaskAPI(c *fiber.Ctx) error {
+	var task = new(Task)
+	if err := c.BodyParser(task); err != nil {
+		log.Println(err)
+		return c.SendStatus(fiber.StatusBadGateway)
+	}
+	err = createTask(task)
+	if err != nil {
+		log.Println(err)
+		return c.Status(fiber.StatusBadGateway).SendString("deadline wrong")
+	}
+	return c.SendStatus(fiber.StatusOK)
+}
+
+func getUserTaskAPI(c *fiber.Ctx) error {
+	type Body struct {
+		Username string `json:"username"`
+	}
+	body := new(Body)
+	if err := c.BodyParser(body); err != nil {
+		log.Println(err)
+		return c.SendStatus(fiber.StatusBadGateway)
+	}
+	Tasks, err := getUserTask(body.Username)
+	if err != nil {
+		log.Println(err)
+		return c.SendStatus(fiber.StatusInternalServerError)
+	}
+	return c.JSON(Tasks)
+}
+
+func deleteTaskAPI(c *fiber.Ctx) error {
+	task := new(Task)
+	if err := c.BodyParser(task); err != nil {
+		log.Println(err)
+		return c.SendStatus(fiber.StatusBadGateway)
+	}
+	err := deleteTask(task.ID)
+	if err != nil {
+		log.Println(err)
+		return c.SendStatus(fiber.StatusInternalServerError)
+	}
+	return c.SendStatus(fiber.StatusOK)
+}
+
+func editTaskAPI(c *fiber.Ctx) error {
+	task := new(Task)
+	if err := c.BodyParser(task); err != nil {
+		log.Println(err)
+		return c.SendStatus(fiber.StatusBadGateway)
 	}
 	return c.SendStatus(fiber.StatusOK)
 }

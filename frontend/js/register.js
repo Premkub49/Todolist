@@ -3,7 +3,7 @@ document.getElementById("register").addEventListener("submit",async function(){
     var username = document.getElementById("username").value;
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value; 
-    var data = await fetch(`http://localhost:8080/api/register`,{
+    var data = await fetch(`${window.backend}/api/register`,{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({

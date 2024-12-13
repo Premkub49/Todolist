@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="layout/head.js"></script>
+        <script src="js/path.js"></script>
+    </head>
+
+    <body style="
+      display: grid;
+      grid-template-rows: 7% 85% 5% 3%;
+      background-color: #f4f4f4;
+    " id="bodyList">
+        <script src="js/getUserList.js"></script>
+        <script src="js/checkcookie.js"></script>
+        <div style="
+        grid-area: 1/1/2/3;
+        background-color: #85e197;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0fr, 1fr));
+      ">
+            <p style="
+          grid-area: 1/1/2/4;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: xx-large;
+          font-weight: bolder;
+        " id="headername">
+                Todo List of
+                <script>
+                async function name() {
+                    await window.fetchcookie();
+                    document.getElementById("headername").innerHTML += window.username;
+                    await window.getUserList();
+                }
+                name();
+            </script>
+            </p>
+            <button class="btn btn-secondary" style="
+          grid-area: 1/3/2/4;
+          display: flex;
+          justify-content: end;
+          align-items: center;
+          margin: 10px 15% 10px auto;
+          padding: 0 10px;
+        " id="logout">
+                Logout
+            </button>
+        </div>
+        <table style="
+        grid-area: 2/1/3/3;
+        margin: 5% 10% 5% 10%;
+        border: 0.5px solid black;
+        background-color: #edc1c1;
+      ">
+            <thead style="background-color: #c01f1f;">
+                <tr style="height: 50px;">
+                    <th class="headers">List Name</th>
+                    <th class="headers">Deadline</th>
+                    <th class="headers">Details</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+
+            </tbody>
+        </table>
+        <div id="addCard" class="Card-List">
+            <ion-icon id="close-btn" name="close-outline"
+                style="grid-area: 2/2/3/3; width: 25px; height: 25px; cursor: pointer"></ion-icon>
+            <label
+                style="grid-area: 2/1/4/3; display: flex; justify-content: center; align-items: center; font-size: x-large; font-weight: bolder;">Add
+                List</label>
+            <form id="addListForm" action="#"
+                style="grid-area: 4/1/8/3; display: grid; grid-template-rows: 20% 20% 45% 15%; margin-left:5%; ">
+                <div style="grid-area: 1/1/2/2" class="input-div">
+                    <p class="input-label">Name</p>
+                    <input class="input-box" type="text" name="namelist"
+                        id="namelist" required />
+                </div>
+                <div style="grid-area: 2/1/3/2" class="input-div">
+                    <p class="input-label">Deadline</p>
+                    <input type="datetime-local" name="deadline"
+                        id="deadline" class="input-box" />
+                </div>
+                <div class="input-div"
+                    style="grid-area:3/1/4/2; max-width: 90%; width:100%; height: 100%; display:flex; flex-direction: column;">
+                    <p class="input-label">Deatail</p>
+                    <input type="text" name="detail" id="detail"
+                        class="input-box" style="width: 90%; height: 90%;" />
+                </div>
+                <button class="btn btn-success"
+                    style="grid-area:4/1/5/2; width: 80px; height: 45px; margin:auto;">AddList</button>
+            </form>
+        </div>
+        <div id="detailCard" style="
+        grid-area:1/1/3/2;
+        display: grid;
+        grid-template-rows: 2% 5% 8% 85%;
+        grid-template-columns: 95% 5%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 80%;
+        width: 40%;
+        background-color: #d9d9d9;
+        border-radius: 0.5rem;
+        visibility: hidden;
+      ">
+            <ion-icon id="close-btn" name="close-outline"
+                style="grid-area: 2/2/3/3; width: 25px; height: 25px; cursor: pointer"></ion-icon>
+            <label
+                style="grid-area: 2/1/4/3; display: flex; justify-content: center; align-items: center; font-size: x-large; font-weight: bolder;">Add
+                List</label>
+
+        </div>
+        <button class="btn btn-secondary"
+            style="grid-area: 3/1/4/3; width: 80px; height:100%; margin:0 1% 0 90%;"
+            id="Add-List">
+            AddList
+        </button>
+        <script src="js/logout.js"></script>
+        <script>
+        document
+            .getElementById("Add-List")
+            .addEventListener("click", function () {
+                document.getElementById("addCard").style.visibility = "visible";
+            });
+        document
+            .getElementById("close-btn")
+            .addEventListener("click", function () {
+                document.getElementById("addCard").style.visibility = "hidden";
+            });
+    </script>
+    </body>
+    <script src="js/addList.js"></script>
+    <script type="module"
+        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule
+        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</html>

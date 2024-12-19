@@ -90,12 +90,12 @@ func createTaskAPI(c *fiber.Ctx) error {
 	var task = new(Task)
 	if err := c.BodyParser(task); err != nil {
 		log.Println(err)
-		return c.SendStatus(fiber.StatusBadGateway)
+		return c.SendStatus(fiber.StatusBadRequest)
 	}
 	err = createTask(task)
 	if err != nil {
 		log.Println(err)
-		return c.Status(fiber.StatusBadGateway).SendString("deadline wrong")
+		return c.Status(fiber.StatusBadRequest).SendString("deadline wrong")
 	}
 	return c.SendStatus(fiber.StatusOK)
 }
@@ -107,7 +107,7 @@ func getUserTaskAPI(c *fiber.Ctx) error {
 	body := new(Body)
 	if err := c.BodyParser(body); err != nil {
 		log.Println(err)
-		return c.SendStatus(fiber.StatusBadGateway)
+		return c.SendStatus(fiber.StatusBadRequest)
 	}
 	Tasks, err := getUserTask(body.Username)
 	if err != nil {
@@ -121,7 +121,7 @@ func deleteTaskAPI(c *fiber.Ctx) error {
 	task := new(Task)
 	if err := c.BodyParser(task); err != nil {
 		log.Println(err)
-		return c.SendStatus(fiber.StatusBadGateway)
+		return c.SendStatus(fiber.StatusBadRequest)
 	}
 	err := deleteTask(task.ID)
 	if err != nil {
@@ -135,7 +135,12 @@ func editTaskAPI(c *fiber.Ctx) error {
 	task := new(Task)
 	if err := c.BodyParser(task); err != nil {
 		log.Println(err)
-		return c.SendStatus(fiber.StatusBadGateway)
+		return c.SendStatus(fiber.StatusBadRequest)
+	}
+	err := updateTask(task)
+	if err != nil {
+		log.Println(err)
+		return c.SendStatus(fiber.StatusInternalServerError)
 	}
 	return c.SendStatus(fiber.StatusOK)
 }

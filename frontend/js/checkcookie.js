@@ -8,11 +8,8 @@ function getCookie(name){
     return null;
 }
 let token = getCookie("token");
-if(token===null&&window.location.pathname!=='/index.html'){
+if(token===null){
     window.location.href = "login.html";
-}
-if(token!==null&&window.location.pathname==='/index.html'){
-    window.location.href = "task.html";
 }
 window.fetchcookie = async function(){
     await fetch(`${window.backend}/api/cookie`,{

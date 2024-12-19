@@ -7,10 +7,29 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src = "layout/head.js"></script>
         <script src = "js/path.js"></script>
+        <style>
+            .account{
+                grid-area:5/2/6/3;
+                display:flex;
+                justify-content: end;
+            }
+            @media (max-width:640px){
+                .account{
+                    grid-area:5/1/6/3;
+                }
+            }
+            @media (max-width:400px){
+                .account{
+                    font-size:small;
+                    display:flex;
+                    justify-content: center;
+                }
+            }
+        </style>
     </head>
     <body class="bg-zinc-100 login-grid">
         <p class="title" style="grid-area:1/2/2/3;">Register</p>
-        <form id="register" class="center" style="grid-area:2/2/3/3; display:grid; grid-template-columns: 50% 50%; grid-template-rows: 25% 25% 25% 20% 5%;">
+        <form id="register" class="center" style="grid-area:2/1/3/3; display:grid; grid-template-columns: 45% 55%; grid-template-rows: 25% 25% 25% 20% 5%;">
             <div class="input-div col-start-1 col-end-3 row-start-1 row-end-2">
                 <p class="font-bold text-xl text-left ">Username</p>
                 <input type="text" name="username" id = "username" required pattern=".*\S.*" title="Cannot be empty or only spaces" class="input-box">
@@ -23,8 +42,8 @@
             <p class="font-bold text-xl text-left ">Password</p>
             <input type="password" name="password" id = "password" pattern=".*\S.*" title="Cannot be empty or only spaces" required class="input-box">
             </div>
-            <button class = "col-start-1 col-end-3 row-start-4 row-end-5 btn btn-primary w-1/4 h-1/2 m-auto text-lg font-bold m-atuo">Register</button>
-            <label class="col-start-1 col-end-3 row-start-5 row-end-6 flex justify-end">Already have an account?<a href="login.html" class = "text-blue-600 font-semibold">Log in</a></label>
+            <button class = "col-start-1 col-end-3 row-start-4 row-end-5 btn btn-primary w-1/4 h-1/2 m-auto font-bold p-0 text-xs sm:text-sm md:text-lg">Register</button>
+            <label class="account">Already have an account?<a href="login.html" class = "text-blue-600 font-semibold">Log in</a></label>
         </form>
     </body>
     <script src = "js/register.js"></script>

@@ -54,7 +54,6 @@ body{
     border:black solid 2px;
 }
 table thead tr .headers{
-    margin:auto; 
     font-size:large; 
     font-weight: bold;
     text-align: center;
@@ -64,9 +63,10 @@ table tbody tr .bodies{
     font-weight: bold;
     vertical-align: top;
     text-align: center;
+    margin-top:20px;
 }
 .Card-List{
-    grid-area:1/1/3/2;
+    grid-area:1/1/3/4;
     display: grid;
     grid-template-rows: 2% 5% 8% 85%;
     grid-template-columns: 95% 5%;

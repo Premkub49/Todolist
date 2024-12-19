@@ -59,3 +59,29 @@ func deleteTask(id int) error {
 	}
 	return nil
 }
+
+func updateTask(task *Task) error {
+	if task.Listname != "" {
+		_, err = db.Exec(
+			"UPDATE userlist SET listname = $1 WHERE id = $2", task.Listname, task.ID,
+		)
+		if err != nil {
+			return err
+		}
+	}
+	if task.Deadline != "" {
+		_, err = db.Exec(
+			"UPDATE userlist SET deadline = $1 WHERE id = $2", task.Deadline, task.ID,
+		)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = db.Exec(
+		"UPDATE userlist SET detail = $1 WHERE id = $2", task.Detail, task.ID,
+	)
+	if err != nil {
+		return err
+	}
+	return nil
+}

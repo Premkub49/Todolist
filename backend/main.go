@@ -78,5 +78,6 @@ func main() {
 	api.Post("/createtask", createTaskAPI)
 	api.Post("/getUserTask", getUserTaskAPI)
 	api.Delete("/deleteTask", deleteTaskAPI)
+	api.Put("/updateTask", editTaskAPI)
 	app.Listen(":8080")
 }

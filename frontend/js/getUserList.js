@@ -90,17 +90,17 @@ window.getUserList = async()=>{
             let div = document.createElement("div");
             div.id = `detailCard-${data.id}`;
             div.className = "Card-List";
-            div.style.gridTemplateRows = "2% 15% 15% 47% 15% 5%";
-            div.style.gridTemplateColumns = "50% 45% 3% 2%";
+            div.style.gridTemplateRows = "10% 15% 15% 40% 15% 5%";
+            div.style.gridTemplateColumns = "50% 40% 8% 2%";
             div.innerHTML += `
             <ion-icon name="close-outline"
-                style="grid-area: 2/3/3/4; width: 25px; height: 25px; cursor: pointer" onclick="document.getElementById('detailCard-${data.id}').style.visibility = 'hidden';"></ion-icon>
+                style="grid-area: 1/3/2/4; width: 25px; height: 25px; cursor: pointer; margin:auto;" onclick="document.getElementById('detailCard-${data.id}').style.visibility = 'hidden';"></ion-icon>
             <label style="grid-area: 2/1/3/4; display: flex; justify-content: center; align-items: center; font-size: xx-large; font-weight: bolder;">${data.listname}</label>
-                <div style="grid-area: 3/1/4/4"  class="input-div">
+                <div style="grid-area: 3/1/4/4; margin-left:20px;"  class="input-div">
                     <p class="input-label">Deadline</p>
                     <p>${data.deadline}</p>
                 </div>
-                <div class="input-div" style="grid-area:4/1/5/4; max-width: 90%; width:100%; height: 100%; display:flex; flex-direction: column;" >
+                <div class="input-div" style="grid-area:4/1/5/4; margin-left:20px; max-width: 90%; width:100%; height: 100%; display:flex; flex-direction: column;" >
                     <p class="input-label">Detail</p>
                     <p>${data.detail}</p>
                 </div>

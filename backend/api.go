@@ -141,12 +141,3 @@ func editTaskAPI(c *fiber.Ctx) error {
 	}
 	return c.Status(fiber.StatusOK).JSON(editTask)
 }
-
-/*func searchTaskAPI(c *fiber.Ctx) error {
-	task := new(Task)
-	if err := c.BodyParser(task); err != nil {
-		log.Println(err)
-		return c.SendStatus(fiber.StatusBadRequest)
-	}
-	return c.SendStatus(fiber.StatusOK)
-}*/

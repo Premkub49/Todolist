@@ -41,10 +41,23 @@
             <div class="input-div col-span-2 row-start-3 row-end-4">
             <p class="font-bold text-xl text-left ">Password</p>
             <input type="password" name="password" id = "password" pattern=".*\S.*" title="Cannot be empty or only spaces" required class="input-box">
+            <label style = "cursor:pointer;" onclick="LookPassword()" id = "lookPassword" class="no-select">See Password</label>    
             </div>
             <button class = "col-start-1 col-end-3 row-start-4 row-end-5 btn btn-primary w-1/4 h-1/2 m-auto font-bold p-0 text-xs sm:text-sm md:text-lg">Register</button>
             <label class="account">Already have an account?<a href="login.html" class = "text-blue-600 font-semibold">Log in</a></label>
         </form>
     </body>
     <script src = "js/register.js"></script>
+    <script>
+        function LookPassword(){
+            if(document.getElementById("password").type == "password"){
+                document.getElementById("password").type = "text";
+                document.getElementById("lookPassword").innerHTML = "Close Password";
+            }
+            else {
+                document.getElementById("password").type = "password";
+                document.getElementById("lookPassword").innerHTML = "See Password";
+            }
+        }
+    </script>
 </html>

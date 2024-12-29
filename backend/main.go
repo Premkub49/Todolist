@@ -79,5 +79,6 @@ func main() {
 	api.Post("/getUserTask", getUserTaskAPI)
 	api.Delete("/deleteTask", deleteTaskAPI)
 	api.Put("/updateTask", editTaskAPI)
+	//api.Post("/searchTask", searchTaskAPI)
 	app.Listen(":8080")
 }

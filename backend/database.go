@@ -31,9 +31,16 @@ func createTask(task *Task) error {
 	return nil
 }
 
-func getUserTask(username string) ([]Task, error) {
+func getUserTask(task *Task) ([]Task, error) {
+	sql := "SELECT * FROM userlist WHERE username = $1"
+	if task.Listname != "" {
+		sql += " AND listname LIKE '%" + task.Listname + "%'"
+	}
+	if task.Deadline != "" {
+		sql += " AND deadline = '" + task.Deadline + "'"
+	}
 	rows, err := db.Query(
-		"SELECT * FROM userlist WHERE username = $1", username,
+		sql, task.Username,
 	)
 	if err != nil {
 		return nil, err
@@ -60,28 +67,37 @@ func deleteTask(id int) error {
 	return nil
 }
 
-func updateTask(task *Task) error {
+func updateTask(task *Task) (Task, error) {
+	sql := "UPDATE userlist SET"
+	update := false
 	if task.Listname != "" {
-		_, err = db.Exec(
-			"UPDATE userlist SET listname = $1 WHERE id = $2", task.Listname, task.ID,
-		)
-		if err != nil {
-			return err
-		}
+		sql += " listname = '" + task.Listname + "'"
+		update = true
 	}
 	if task.Deadline != "" {
-		_, err = db.Exec(
-			"UPDATE userlist SET deadline = $1 WHERE id = $2", task.Deadline, task.ID,
+		sql += " deadline = '" + task.Deadline + "'"
+		update = true
+	}
+	if task.Detail != "" {
+		sql += " detail = '" + task.Detail + "'"
+		update = true
+	}
+	if update {
+		sql += " WHERE id = "
+		_, err := db.Exec(
+			sql+"$1", task.ID,
 		)
 		if err != nil {
-			return err
+			return Task{}, err
 		}
 	}
-	_, err = db.Exec(
-		"UPDATE userlist SET detail = $1 WHERE id = $2", task.Detail, task.ID,
+	row := db.QueryRow(
+		"SELECT * FROM userlist WHERE id = $1", task.ID,
 	)
+	editTask := Task{}
+	err = row.Scan(&editTask.ID, &editTask.Listname, &editTask.Deadline, &editTask.Deadline, &editTask.Username)
 	if err != nil {
-		return err
+		return Task{}, err
 	}
-	return nil
+	return editTask, nil
 }

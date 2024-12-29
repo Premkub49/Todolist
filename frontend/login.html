@@ -4,9 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login Page</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src = "layout/head.js"></script>
-        <script src = "js/path.js"></script>
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="layout/head.js"></script>
+        <script src="js/path.js"></script>
         <style>
             .account{
                 grid-area:5/2/6/3;
@@ -28,18 +29,37 @@
     <body class="bg-zinc-100 login-grid">
         <p class="title" style="grid-area:1/2/2/3;">Login</p>
         <form id="login"
-            class="center" style="grid-area:2/2/3/3; display:grid; grid-template-columns: 50% 50%; grid-template-rows: 5% 30% 30% 25% 10%; gap:10px;">
+            class="center"
+            style="grid-area:2/2/3/3; display:grid; grid-template-columns: 50% 50%; grid-template-rows: 5% 30% 30% 25% 10%; gap:10px;">
             <div class="input-div col-start-1 col-end-3 row-start-2 row-end-3">
                 <p class="font-bold text-xl text-left ">Username</p>
-                <input type="text" name="username" id = "username" class="input-box">
+                <input type="text" name="username" id="username"
+                    class="input-box">
             </div>
             <div class="input-div col-span-2 row-start-3 row-end-4">
-            <p class="font-bold text-xl text-left ">Password</p>
-            <input type="password" name="password" id = "password" class = "input-box">
+                <p class="font-bold text-xl text-left ">Password</p>
+                <input type="password" name="password" id="password"
+                    class="input-box">
+                <label style="cursor:pointer;" onclick="LookPassword()"
+                    id="lookPassword" class="no-select">See Password</label>
             </div>
-            <button class = "col-start-1 col-end-3 row-start-4 row-end-5 btn btn-primary w-1/4 h-1/2 m-auto font-bold p-0 text-xs sm:text-sm md:text-lg">Login</button>
-            <label class="account">Don’t have an account?<a href="register.html" class = "text-blue-600 font-semibold">Sign Up</a></label>
+            <button
+                class="col-start-1 col-end-3 row-start-4 row-end-5 btn btn-primary w-1/4 h-1/2 m-auto font-bold p-0 text-xs sm:text-sm md:text-lg">Login</button>
+            <label class="account">Don’t have an account?<a href="register.html"
+                    class="text-blue-600 font-semibold">Sign Up</a></label>
         </form>
     </body>
-    <script src = "js/login.js"></script>
+    <script src="js/login.js"></script>
+    <script>
+        function LookPassword(){
+            if(document.getElementById("password").type == "password"){
+                document.getElementById("password").type = "text";
+                document.getElementById("lookPassword").innerHTML = "Close Password";
+            }
+            else {
+                document.getElementById("password").type = "password";
+                document.getElementById("lookPassword").innerHTML = "See Password";
+            }
+        }
+    </script>
 </html>

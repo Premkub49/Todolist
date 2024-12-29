@@ -1,9 +1,0 @@
-$(document).ready(function(){
-    $.get("layout/footer.html",
-        function(data,status){
-            if(status=="success"){
-                $("body").append(data);
-            }
-        }
-    );
-})
